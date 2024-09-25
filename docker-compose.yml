@@ -1,0 +1,89 @@
+version: '3'
+
+networks:
+    api_backend:
+        driver: bridge
+
+services:
+    api_backend_app:
+        build:
+            context: ./docker/development
+            dockerfile: nginx.dockerfile
+        ports:
+            - "8087:80"
+        container_name: api_backend_app
+        volumes:
+            - ./:/var/www/html:delegated
+        depends_on:
+            - api_backend_php
+            - api_backend_redis
+            - api_backend_mysql
+        networks:
+            - api_backend
+
+    api_backend_mysql:
+        image: mysql:8.0
+        restart: unless-stopped
+        container_name: api_backend_mysql
+        tty: true
+        volumes:
+            - ./docker/development/backup:/var/lib/mysql
+            - ./docker/development/data:/docker-entrypoint-initdb.d
+        ports:
+            - "3387:3306"
+        environment:
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_USER: ${DB_USERNAME}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+            SERVICE_TAGS: dev
+            SERVICE_NAME: mysql
+        networks:
+            - api_backend
+
+    api_backend_php:
+        image: api_backend_php
+        build:
+            context: ./docker/development
+            dockerfile: php.dockerfile
+        container_name: api_backend_php
+        ports:
+            - "9087:9000"
+        volumes:
+            - ./:/var/www/html:delegated
+        networks:
+            - api_backend
+
+    api_backend_redis:
+        image: redis:alpine
+        restart: unless-stopped
+        container_name: api_backend_redis
+        ports:
+            - "6387:6379"
+        networks:
+            - api_backend
+
+    api_backend_npm:
+        image: node:18-alpine
+        container_name: api_backend_npm
+        volumes:
+            - ./:/var/www/html
+        ports:
+            - "3087:3000"
+        working_dir: /var/www/html
+        tty: true
+        networks:
+            - api_backend
+
+    api_backend_queue:
+        image: api_backend_php
+        container_name: api_backend_queue
+        restart: always
+        working_dir: /var/www/html
+        command: php artisan queue:work
+        depends_on:
+            - api_backend_php
+        volumes:
+            - ./:/var/www/html:delegated
+        networks:
+            - api_backend
