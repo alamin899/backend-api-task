@@ -59,13 +59,15 @@ class ProductResource extends Resource
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('slug')
                     ->toggleable(),
-                Tables\Columns\TextColumn::make('price'),
-                Tables\Columns\TextColumn::make('stock'),
+                Tables\Columns\TextColumn::make('price')->badge(),
+                Tables\Columns\TextColumn::make('stock')->badge(),
             ])
             ->filters([
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\EditAction::make(),
+                ])
             ])
             ->bulkActions([])
             ->defaultSort('id', 'desc');
