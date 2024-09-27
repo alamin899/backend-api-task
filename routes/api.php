@@ -4,6 +4,8 @@ use App\Http\Controllers\API\Auth\LoginController;
 use App\Http\Controllers\API\Auth\LogoutController;
 use App\Http\Controllers\API\Auth\RefreshTokenController;
 use App\Http\Controllers\API\Auth\RegistrationController;
+use App\Http\Controllers\API\Order\OrderCreateController;
+use App\Http\Controllers\API\Order\OrderHistoryController;
 use App\Http\Controllers\API\Product\ProductCreateController;
 use App\Http\Controllers\API\Product\ProductListController;
 use App\Http\Controllers\API\Product\ProductUpdateController;
@@ -24,6 +26,11 @@ Route::prefix('/v1')->middleware('api')->group(function () {
         Route::prefix('/products')->middleware('isadmin')->group(function () {
             Route::post('/create', ProductCreateController::class);
             Route::put('/{product:slug}/update', ProductUpdateController::class);
+        });
+
+        Route::prefix('/orders')->group(function () {
+            Route::get('/', OrderHistoryController::class);
+            Route::post('/create', OrderCreateController::class);
         });
     });
 });
