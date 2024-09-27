@@ -12,7 +12,7 @@ class Order extends Model
 {
     use HasFactory,SoftDeletes;
 
-    protected $guarded = ['user_id','total_amount'];
+    protected $fillable = ['user_id','total_amount'];
 
     public function user(): BelongsTo
     {

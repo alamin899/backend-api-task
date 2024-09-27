@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domains\Order;
+namespace App\Domains\Order\Jobs;
 
 use App\Models\Order;
 use App\Models\User;
