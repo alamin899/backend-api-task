@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\Auth;
 
+use App\Features\Auth\LogoutFeature;
 use App\Features\Auth\RefreshTokenFeature;
 use App\Helpers\JsonResponder;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 
-class RefreshTokenController extends Controller
+class LogoutController extends Controller
 {
     public function __invoke()
     {
-        $response = (new RefreshTokenFeature())->handle();
+        $response = (new LogoutFeature())->handle();
 
         return JsonResponder::response(
             message: $response['message'] ?? '',

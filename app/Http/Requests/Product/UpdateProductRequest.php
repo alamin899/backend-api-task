@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Product;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequest extends FormRequest
+class UpdateProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,8 +23,9 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['string', 'email:dns,rfc', 'required'],
-            'password' => ['required', 'min:4', 'max:100'],
+            'name' => ['string','max:255'],
+            'price' => ['numeric','min:1'],
+            'stock' => ['numeric','min:0'],
         ];
     }
 }

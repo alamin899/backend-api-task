@@ -11,6 +11,7 @@ use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -20,7 +21,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->alias([
+            'isadmin' => \App\Http\Middleware\IsAdminCheck::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
 
@@ -29,7 +32,7 @@ return Application::configure(basePath: dirname(__DIR__))
         });
 
         $exceptions->render(function (NotFoundHttpException $exception) {
-            return JsonResponder::response(message: 'Route Not Found', statusCode: Response::HTTP_NOT_FOUND);
+            return JsonResponder::response(message: $exception->getMessage(), statusCode: Response::HTTP_NOT_FOUND);
         });
         $exceptions->render(function (MethodNotAllowedHttpException $exception) {
             return JsonResponder::response(message: $exception->getMessage(), statusCode: Response::HTTP_METHOD_NOT_ALLOWED);
@@ -38,6 +41,9 @@ return Application::configure(basePath: dirname(__DIR__))
             return JsonResponder::response(message: 'The resource is not found', statusCode: Response::HTTP_NOT_FOUND);
         });
         $exceptions->render(function (UnauthorizedException $exception) {
+            return JsonResponder::response(message: $exception->getMessage(), statusCode: Response::HTTP_FORBIDDEN);
+        });
+        $exceptions->render(function (UnauthorizedHttpException $exception) {
             return JsonResponder::response(message: $exception->getMessage(), statusCode: Response::HTTP_FORBIDDEN);
         });
         $exceptions->render(function (AuthenticationException $exception) {
