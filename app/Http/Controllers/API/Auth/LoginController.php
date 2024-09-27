@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\Auth;
 
 use App\Features\Auth\LoginFeature;
 use App\Helpers\JsonResponder;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\LoginRequest;
+use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\JsonResponse;
 
 class LoginController extends Controller

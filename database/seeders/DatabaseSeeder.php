@@ -2,9 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Admin;
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -21,7 +19,11 @@ class DatabaseSeeder extends Seeder
             'name' => 'MD. AL-AMIN',
             'user_type' => 'admin',
             'email' => 'alaminhossen899@gmail.com',
-            'password' => Hash::make('password'),
+            'password' => bcrypt('password'),
+        ]);
+
+        $this->call([
+            ProductSeeder::class,
         ]);
     }
 }
