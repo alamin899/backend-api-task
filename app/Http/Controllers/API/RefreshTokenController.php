@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Features\Auth\RefreshTokenFeature;
+use App\Helpers\JsonResponder;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -9,15 +11,12 @@ class RefreshTokenController extends Controller
 {
     public function __invoke()
     {
-        return $this->respondWithToken(auth()->refresh());
-    }
+        $response = (new RefreshTokenFeature())->handle();
 
-    private function respondWithToken($token)
-    {
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
-        ]);
-    }
+        return JsonResponder::response(
+            message: $response['message'] ?? '',
+            errors: $response['errors'] ?? [],
+            data: $response['data'] ?? [],
+            statusCode: $response['statusCode'] ?? 200,
+        );    }
 }

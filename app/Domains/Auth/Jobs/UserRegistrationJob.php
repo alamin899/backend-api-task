@@ -22,7 +22,7 @@ class UserRegistrationJob
         ],[
             'name' => $this->name,
             'user_type' => $this->userType,
-            'password' => Hash::make('password'),
+            'password' => bcrypt($this->password),
         ]);
     }
 

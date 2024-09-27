@@ -11,7 +11,9 @@ Route::prefix('/v1')->middleware('api')->group(function () {
     Route::post('login', LoginController::class);
 
     Route::middleware(['auth:api'])->group(function () {
-        Route::post('refresh', RefreshTokenController::class);
-        Route::post('logout', LogoutController::class);
+        Route::post('refresh-token', RefreshTokenController::class);
+        Route::get('test', function (){
+            return response()->json(["customer"=>auth()->user(),"payload"=>auth()->payload()]);
+        });
     });
 });

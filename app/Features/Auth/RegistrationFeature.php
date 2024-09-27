@@ -19,7 +19,7 @@ namespace App\Features\Auth;
     public function handle(): array
     {
         $customer = (new UserRegistrationJob(name: $this->name,email:  $this->email,password:  $this->password,userType: 'customer'))->handle();
-        $token = auth()->attempt([$this->email, $this->password]);
+        $token = auth('api')->login($customer);
         if (!$token) {
             return [
                 'message' => 'Your registration request failed',
