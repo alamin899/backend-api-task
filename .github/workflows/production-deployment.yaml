@@ -11,7 +11,6 @@ jobs:
   build:
     name: Production build process
     runs-on: ubuntu-latest
-    environment: production
     steps:
       - name: Set up Actions
         uses: actions/checkout@v3
@@ -20,7 +19,6 @@ jobs:
     name: Production deploy process
     needs: build
     runs-on: ubuntu-latest
-    environment: production
     steps:
       - name: Print secret for debugging (masked)
         run: |
