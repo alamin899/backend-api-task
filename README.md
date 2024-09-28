@@ -5,7 +5,6 @@
     2.NORMAL LARAVEL RUN
 ### REQUIREMENTS
 - **[PHP](https://www.php.net/)** >= 8.2 **OR** **[Docker](https://www.docker.com/)**
-- **[Postman]** (you will get postman collection by click this link) Or (you will get collection from application root folder)
 
 ### INSTALLATION PROCESS BY DOCKER COMPOSE
 ```shell
