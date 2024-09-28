@@ -1,6 +1,6 @@
 # ApexDMIT Backend Task (API & Admin panel)
 
-### LIVE APPLICATION:
+### LIVE APPLICATION
 - **[APPLICATION]([https://www.php.net/](https://apexdmit.iamalamin.com/))**
 
 ### APPLICATION RUNNING PROCESS:
