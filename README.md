@@ -1,5 +1,8 @@
 # ApexDMIT Backend Task (API & Admin panel)
 
+### LIVE APPLICATION:
+- **[APPLICATION]([https://www.php.net/](https://apexdmit.iamalamin.com/))**
+
 ### APPLICATION RUNNING PROCESS:
     1.USING DOCKER COMPOSE
     2.NORMAL LARAVEL RUN
