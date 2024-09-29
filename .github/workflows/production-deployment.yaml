@@ -1,4 +1,4 @@
-name: AmarPet application build for deployment environment and deploy to the development server
+name: Deployment
 
 on:
   push:
