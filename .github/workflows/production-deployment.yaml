@@ -4,9 +4,6 @@ on:
   push:
     tags:
       - "v[0-9]+.[0-9]+.[0-9]+"
-    branches:
-      - master
-
 jobs:
   build:
     name: Production build process
@@ -30,6 +27,7 @@ jobs:
           script: |
             cd /var/www/backend-api-task
             make pull
+            make build
             make stop
             make start
             make down
