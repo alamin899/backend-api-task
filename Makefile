@@ -1,5 +1,5 @@
 pull:
-	docker-compose pull
+	git pull
 
 stop:
 	docker-compose stop
