@@ -83,7 +83,7 @@
                     </main>
 
                     <footer class="py-16 text-center text-sm text-black dark:text-white/70">
-                        Backend Tadk v1.0.0
+                        Backend Task v1.0.1
                     </footer>
                 </div>
             </div>
