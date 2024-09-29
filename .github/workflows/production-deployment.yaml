@@ -20,11 +20,6 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Print secret for debugging (masked)
-        run: |
-          echo "HOST is ${{ secrets.HOST }}"
-          echo "USERNAME is ${{ secrets.USERNAME }}"
-          echo "PORT is ${{ secrets.PORT }}"
       - name: Production server access via SSH access
         uses: appleboy/ssh-action@master
         with:
