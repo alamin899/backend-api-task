@@ -8,6 +8,7 @@ jobs:
   build:
     name: Production build process
     runs-on: ubuntu-latest
+    environment: production
     steps:
       - name: Set up Actions
         uses: actions/checkout@v3
@@ -16,6 +17,7 @@ jobs:
     name: Production deploy process
     needs: build
     runs-on: ubuntu-latest
+    environment: production
     steps:
       - name: Production server access via SSH access
         uses: appleboy/ssh-action@master
